@@ -65,7 +65,7 @@ void prosesStok(int stok) {
   while (stok > 0) {
     stok--;
   }
-  print("Stok habis: " + stok.toString());
+  print("Stok habis: $stok");
 }
 
 double diskonKategori(String kategori) {
@@ -92,7 +92,7 @@ double hargaSetelahDiskon(
 }) {
   return hitungDiskon(harga, persen);
 }
-String rupiah(double harga) => "Rp " + harga.toStringAsFixed(0);
+String rupiah(double harga) => "Rp ${harga.toStringAsFixed(0)}";
 
 // OOP
 class Product {
@@ -142,7 +142,7 @@ List<Product> products = [
     id: 1,
     name: "Laptop",
     price: 5000000,
-    imageUrl: "laptop.jpg",
+    imageUrl: "https://tse2.mm.bing.net/th/id/OIP.aZSkOtajHhtXsusl-Em77AHaEc?r=0&pid=Api&h=220&P=0",
     category: "Elektronik",
     stock: 10,
   ),
@@ -150,7 +150,7 @@ List<Product> products = [
     id: 2,
     name: "HP",
     price: 3000000,
-    imageUrl: "hp.jpg",
+    imageUrl: "https://tse2.mm.bing.net/th/id/OIP.lzGXRQWt7abDeVf2r72blgHaEK?r=0&pid=Api&h=220&P=0",
     category: "Elektronik",
     stock: 0,
   ),
@@ -158,7 +158,7 @@ List<Product> products = [
     id: 3,
     name: "Headset",
     price: 350000,
-    imageUrl: "headset.jpg",
+    imageUrl: "https://tse2.mm.bing.net/th/id/OIP.lLHeZSNMf7u8pC0twPjGWgHaIo?r=0&pid=Api&h=220&P=0",
     category: "Elektronik",
     stock: 3,
   ),
@@ -166,7 +166,7 @@ List<Product> products = [
     id: 4,
     name: "Jaket",
     price: 250000,
-    imageUrl: "jaket.jpg",
+    imageUrl: "https://www.bfgcdn.com/1500_1500_90/005-4079/the-north-face-extreme-pile-fullzip-jacket-fleece-jacket.jpg",
     category: "Fashion",
     stock: 8,
   ),
@@ -174,7 +174,7 @@ List<Product> products = [
     id: 5,
     name: "Sepatu",
     price: 450000,
-    imageUrl: "sepatu.jpg",
+    imageUrl: "https://tse4.mm.bing.net/th/id/OIP.moGwMEBc-dJ1JbwNo7qL5QHaHa?r=0&pid=Api&h=220&P=0",
     category: "Fashion",
     stock: 2,
   ),
@@ -182,23 +182,23 @@ List<Product> products = [
     id: 6,
     name: "Kaos",
     price: 100000,
-    imageUrl: "kaos.jpg",
+    imageUrl: "https://tse1.mm.bing.net/th/id/OIP.zcQ5n8nP1xnQ0vzvZogAOQHaHa?r=0&pid=Api&h=220&P=0",
     category: "Fashion",
     stock: 12,
   ),
   Product(
     id: 7,
-    name: "Roti",
-    price: 15000,
-    imageUrl: "roti.jpg",
-    category: "Makanan",
+    name: "Celana",
+    price: 150000,
+    imageUrl: "https://tse2.mm.bing.net/th/id/OIP.l93o5Hykb2hJV0bdgIQFwAHaHa?r=0&pid=Api&h=220&P=0",
+    category: "Fashion",
     stock: 20,
   ),
   Product(
     id: 8,
     name: "Kopi",
     price: 20000,
-    imageUrl: "kopi.jpg",
+    imageUrl: "https://tse2.mm.bing.net/th/id/OIP.ewnGqDbeNnBtdsxZviQlOQHaE7?r=0&pid=Api&h=220&P=0",
     category: "Makanan",
     stock: 2,
   ),
@@ -219,12 +219,12 @@ double hitungTotalBelanja(List<Product> keranjang) {
 void main() {
   print("=== TOKOKITA ===");
 
-  print("Toko: " + toko);
-  print("Pemilik: " + pemilik);
-  print("Produk: " + nama);
-  print("Harga: " + rupiah(harga));
-  print("Stok: " + stok.toString());
-  print("Status: " + statusStok(stok));
+  print("Toko: $toko");
+  print("Pemilik: $pemilik");
+  print("Produk: $nama");
+  print("Harga: ${rupiah(harga)}");
+  print("Stok: $stok");
+  print("Status: ${statusStok(stok)}");
 
   print("\n=== OPERATOR ===");
   operatorDemo();
@@ -237,7 +237,7 @@ void main() {
 
   print("\n=== DISKON ===");
   double diskon = diskonKategori(kategori);
-  print(diskon.toString() + "%");
+  print("$diskon%");
   print(rupiah(hargaSetelahDiskon(
     harga,
     persen: diskon,
@@ -265,11 +265,7 @@ void main() {
   print("\n=== 8 PRODUCTS ===");
   for (Product p in products) {
     print(
-      p.name +
-      " - " +
-      rupiah(p.price) +
-      " - " +
-      p.getStatusStok(),
+      "${p.name} - ${rupiah(p.price)} - ${p.getStatusStok()}",
     );
   }
 
