@@ -1,6 +1,5 @@
 // PRAKTIKUM 2 - DASAR DART
 // TOKOKITA
-
 // VARIABLES & DATA TYPES
 const String toko = "TokoKita";
 final String pemilik = "Nico";
@@ -19,7 +18,6 @@ Map<String, dynamic> dataProduk = {
   "stok": stok
 };
 
-// OPERATORS
 void operatorDemo() {
   int jumlah = 2;
 
@@ -138,13 +136,14 @@ class DiscountedProduct extends Product {
 
 // DUMMY PRODUCTS
 List<Product> products = [
-  Product(
+  DiscountedProduct(
     id: 1,
     name: "Laptop",
     price: 5000000,
     imageUrl: "https://tse2.mm.bing.net/th/id/OIP.aZSkOtajHhtXsusl-Em77AHaEc?r=0&pid=Api&h=220&P=0",
     category: "Elektronik",
     stock: 10,
+    discountPercent: 20,
   ),
   Product(
     id: 2,
@@ -201,6 +200,71 @@ List<Product> products = [
     imageUrl: "https://tse2.mm.bing.net/th/id/OIP.ewnGqDbeNnBtdsxZviQlOQHaE7?r=0&pid=Api&h=220&P=0",
     category: "Makanan",
     stock: 2,
+  ),
+  Product(
+  id: 9,
+  name: "Tablet",
+  price: 2000000,
+  imageUrl: "https://...",
+  category: "Elektronik",
+  stock: 5,
+  ),
+  Product(
+    id: 10,
+    name: "Jam Tangan",
+    price: 350000,
+    imageUrl: "https://...",
+    category: "Fashion",
+    stock: 7,
+  ),
+  Product(
+    id: 11,
+    name: "Roti",
+    price: 15000,
+    imageUrl: "https://...",
+    category: "Makanan",
+    stock: 10,
+  ),
+  Product(
+    id: 12,
+    name: "Mouse",
+    price: 150000,
+    imageUrl: "https://...",
+    category: "Elektronik",
+    stock: 4,
+  ),
+  Product(
+    id: 13,
+    name: "Tas",
+    price: 250000,
+    imageUrl: "https://...",
+    category: "Fashion",
+    stock: 6,
+  ),
+  Product(
+    id: 14,
+    name: "Donat",
+    price: 12000,
+    imageUrl: "https://...",
+    category: "Makanan",
+    stock: 15,
+  ),
+  Product(
+    id: 15,
+    name: "Keyboard",
+    price: 300000,
+    imageUrl: "https://...",
+    category: "Elektronik",
+    stock: 3,
+  ),
+  DiscountedProduct(
+  id: 16,
+  name: "Smartwatch",
+  price: 750000,
+  imageUrl: "URL_GAMBAR",
+  category: "Elektronik",
+  stock: 8,
+  discountPercent: 10,
   ),
 ];
 
@@ -262,13 +326,12 @@ void main() {
   print(dp.name);
   print(rupiah(dp.getHargaFinal()));
 
-  print("\n=== 8 PRODUCTS ===");
+  print("\n=== 16 PRODUCTS ===");
   for (Product p in products) {
     print(
       "${p.name} - ${rupiah(p.price)} - ${p.getStatusStok()}",
     );
   }
-
   print("\n=== TOTAL BELANJA ===");
   print(rupiah(hitungTotalBelanja(products)));
 
