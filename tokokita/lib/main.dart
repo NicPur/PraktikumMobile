@@ -1,15 +1,25 @@
 import 'package:flutter/material.dart';
-import 'screens/home_page.dart';
+import 'screens/main_page.dart';
+import 'screens/product_detail_page.dart';
 
 void main() {
-  runApp(const TokoKitaApp());
+  runApp(
+    const TokoKitaApp(),
+  );
 }
+
 class TokoKitaApp extends StatelessWidget {
-  const TokoKitaApp({super.key});
+  const TokoKitaApp({
+    super.key,
+  });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
+
     return MaterialApp(
+
       debugShowCheckedModeBanner: false,
 
       title: "TokoKita",
@@ -18,7 +28,18 @@ class TokoKitaApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
 
-      home: const HomePage(),
+      // HALAMAN AWAL
+      initialRoute: '/',
+
+      // ROUTES
+      routes: {
+        '/': (context) {
+          return const MainPage();
+        },
+        '/detail': (context) {
+          return const ProductDetailPage();
+        },
+      },
     );
   }
 }
