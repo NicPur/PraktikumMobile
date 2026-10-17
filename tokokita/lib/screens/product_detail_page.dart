@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../models/product.dart';
+import '../controllers/cart_controller.dart';
 
 class ProductDetailPage extends StatefulWidget {
+  final Product product;
+
   const ProductDetailPage({
     super.key,
+    required this.product,
   });
 
   @override
@@ -13,62 +18,45 @@ class ProductDetailPage extends StatefulWidget {
 
 class _ProductDetailPageState
     extends State<ProductDetailPage> {
-
   int jumlah = 1;
+
+  late final CartController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = Get.find<CartController>();
+  }
 
   @override
   Widget build(BuildContext context) {
-
-    final Product product =
-        ModalRoute.of(context)!
-            .settings
-            .arguments as Product;
+    final Product product = widget.product;
 
     return Scaffold(
-
       appBar: AppBar(
-        title: const Text(
-          "Detail Produk",
-        ),
-
+        title: const Text("Detail Produk"),
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
       ),
 
       body: SingleChildScrollView(
-
         padding: const EdgeInsets.all(16),
-
         child: Column(
-          crossAxisAlignment:
-              CrossAxisAlignment.start,
-
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
             // GAMBAR PRODUK
             ClipRRect(
-              borderRadius:
-                  BorderRadius.circular(12),
-
+              borderRadius: BorderRadius.circular(12),
               child: Image.network(
                 product.imageUrl,
-
                 width: double.infinity,
                 height: 250,
-
                 fit: BoxFit.cover,
-
-                errorBuilder: (
-                  context,
-                  error,
-                  stackTrace,
-                ) {
-
+                errorBuilder: (context, error, stackTrace) {
                   return Container(
                     width: double.infinity,
                     height: 250,
                     color: Colors.grey[300],
-
                     child: const Icon(
                       Icons.image,
                       size: 70,
@@ -80,10 +68,9 @@ class _ProductDetailPageState
 
             const SizedBox(height: 20),
 
-            // NAMA
+            // NAMA PRODUK
             Text(
               product.name,
-
               style: const TextStyle(
                 fontSize: 26,
                 fontWeight: FontWeight.bold,
@@ -95,7 +82,6 @@ class _ProductDetailPageState
             // HARGA
             Text(
               "Rp ${product.price.toStringAsFixed(0)}",
-
               style: const TextStyle(
                 fontSize: 20,
                 color: Colors.blue,
@@ -108,7 +94,6 @@ class _ProductDetailPageState
             // KATEGORI
             Text(
               "Kategori: ${product.category}",
-
               style: const TextStyle(
                 fontSize: 16,
                 color: Colors.grey,
@@ -117,22 +102,17 @@ class _ProductDetailPageState
 
             const SizedBox(height: 10),
 
-            // STATUS
+            // STATUS STOK
             Text(
               "Status: ${product.getStatusStok()}",
-
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-
-                color:
-                    product.getStatusStok() ==
-                            "Tersedia"
-                        ? Colors.green
-                        : product.getStatusStok() ==
-                                "Stok Terbatas"
-                            ? Colors.orange
-                            : Colors.red,
+                color: product.getStatusStok() == "Tersedia"
+                    ? Colors.green
+                    : product.getStatusStok() == "Stok Terbatas"
+                        ? Colors.orange
+                        : Colors.red,
               ),
             ),
 
@@ -142,20 +122,16 @@ class _ProductDetailPageState
             Text(
               product.description ??
                   "Produk ${product.name} berkualitas "
-                  "dan cocok digunakan untuk kebutuhan "
-                  "sehari-hari.",
-
-              style: const TextStyle(
-                fontSize: 16,
-              ),
+                      "dan cocok digunakan untuk kebutuhan "
+                      "sehari-hari.",
+              style: const TextStyle(fontSize: 16),
             ),
 
             const SizedBox(height: 25),
 
-            // JUMLAH
+            // JUMLAH PRODUK
             const Text(
               "Jumlah",
-
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -174,9 +150,7 @@ class _ProductDetailPageState
                           });
                         }
                       : null,
-                  icon: const Icon(
-                    Icons.remove,
-                  ),
+                  icon: const Icon(Icons.remove),
                 ),
 
                 Text(
@@ -186,49 +160,51 @@ class _ProductDetailPageState
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                
+
                 IconButton(
-                  onPressed: () {
-                    setState(() {
-                      jumlah++;
-                    });
-                  },
-                  icon: const Icon(
-                    Icons.add,
-                  ),
+                  onPressed: jumlah < product.stock
+                      ? () {
+                          setState(() {
+                            jumlah++;
+                          });
+                        }
+                      : null,
+                  icon: const Icon(Icons.add),
                 ),
               ],
             ),
 
             const SizedBox(height: 20),
 
-            // TOMBOL TAMBAH KERANJANG
+            // TAMBAH KE KERANJANG
             SizedBox(
               width: double.infinity,
-
               child: ElevatedButton(
-                onPressed: () {
+                onPressed: product.stock <= 0
+                    ? null
+                    : () {
+                        for (int i = 0; i < jumlah; i++) {
+                          controller.addToCart(product);
+                        }
 
-                  Navigator.pop(
-                    context,
-                    jumlah,
-                  );
-                },
+                        Get.back();
 
-                style:
-                    ElevatedButton.styleFrom(
+                        Get.snackbar(
+                          "Berhasil",
+                          "${product.name} ditambahkan "
+                              "sebanyak $jumlah",
+                          snackPosition: SnackPosition.BOTTOM,
+                        );
+                      },
+                style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
                   foregroundColor: Colors.white,
-
-                  padding:
-                      const EdgeInsets.symmetric(
+                  padding: const EdgeInsets.symmetric(
                     vertical: 14,
                   ),
                 ),
-
                 child: const Text(
                   "Tambah ke Keranjang",
-
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
