@@ -15,7 +15,7 @@ List<String> kategoriList = ["Elektronik", "Fashion", "Makanan"];
 Map<String, dynamic> dataProduk = {
   "nama": nama,
   "harga": harga,
-  "stok": stok
+  "stok": stok,
 };
 
 void operatorDemo() {
@@ -90,6 +90,7 @@ double hargaSetelahDiskon(
 }) {
   return hitungDiskon(harga, persen);
 }
+
 String rupiah(double harga) => "Rp ${harga.toStringAsFixed(0)}";
 
 // OOP
@@ -113,6 +114,19 @@ class Product {
   });
 
   String getStatusStok() => statusStok(stock);
+
+  // FACTORY FROM JSON (FAKE STORE API)
+  factory Product.fromJson(Map<String, dynamic> json) {
+    return Product(
+      id: json['id'],
+      name: json['title'] ?? '',                
+      price: (json['price'] as num).toDouble(), 
+      imageUrl: json['image'] ?? '',            
+      category: json['category'] ?? '',
+      stock: 10,                        
+      description: json['description'],
+    );
+  }
 }
 
 // INHERITANCE
@@ -130,8 +144,7 @@ class DiscountedProduct extends Product {
     required this.discountPercent,
   });
 
-  double getHargaFinal() =>
-      hitungDiskon(price, discountPercent);
+  double getHargaFinal() => hitungDiskon(price, discountPercent);
 }
 
 // DUMMY PRODUCTS
@@ -140,7 +153,8 @@ List<Product> products = [
     id: 1,
     name: "Laptop",
     price: 5000000,
-    imageUrl: "https://tse2.mm.bing.net/th/id/OIP.aZSkOtajHhtXsusl-Em77AHaEc?r=0&pid=Api&h=220&P=0",
+    imageUrl:
+        "https://tse2.mm.bing.net/th/id/OIP.aZSkOtajHhtXsusl-Em77AHaEc?r=0&pid=Api&h=220&P=0",
     category: "Elektronik",
     stock: 10,
     discountPercent: 20,
@@ -149,7 +163,8 @@ List<Product> products = [
     id: 2,
     name: "HP",
     price: 3000000,
-    imageUrl: "https://tse2.mm.bing.net/th/id/OIP.lzGXRQWt7abDeVf2r72blgHaEK?r=0&pid=Api&h=220&P=0",
+    imageUrl:
+        "https://tse2.mm.bing.net/th/id/OIP.lzGXRQWt7abDeVf2r72blgHaEK?r=0&pid=Api&h=220&P=0",
     category: "Elektronik",
     stock: 0,
   ),
@@ -157,7 +172,8 @@ List<Product> products = [
     id: 3,
     name: "Headset",
     price: 350000,
-    imageUrl: "https://tse2.mm.bing.net/th/id/OIP.lLHeZSNMf7u8pC0twPjGWgHaIo?r=0&pid=Api&h=220&P=0",
+    imageUrl:
+        "https://tse2.mm.bing.net/th/id/OIP.lLHeZSNMf7u8pC0twPjGWgHaIo?r=0&pid=Api&h=220&P=0",
     category: "Elektronik",
     stock: 3,
   ),
@@ -165,7 +181,8 @@ List<Product> products = [
     id: 4,
     name: "Jaket",
     price: 250000,
-    imageUrl: "https://www.bfgcdn.com/1500_1500_90/005-4079/the-north-face-extreme-pile-fullzip-jacket-fleece-jacket.jpg",
+    imageUrl:
+        "https://www.bfgcdn.com/1500_1500_90/005-4079/the-north-face-extreme-pile-fullzip-jacket-fleece-jacket.jpg",
     category: "Fashion",
     stock: 8,
   ),
@@ -173,7 +190,8 @@ List<Product> products = [
     id: 5,
     name: "Sepatu",
     price: 450000,
-    imageUrl: "https://tse4.mm.bing.net/th/id/OIP.moGwMEBc-dJ1JbwNo7qL5QHaHa?r=0&pid=Api&h=220&P=0",
+    imageUrl:
+        "https://tse4.mm.bing.net/th/id/OIP.moGwMEBc-dJ1JbwNo7qL5QHaHa?r=0&pid=Api&h=220&P=0",
     category: "Fashion",
     stock: 2,
   ),
@@ -181,7 +199,8 @@ List<Product> products = [
     id: 6,
     name: "Kaos",
     price: 100000,
-    imageUrl: "https://tse1.mm.bing.net/th/id/OIP.zcQ5n8nP1xnQ0vzvZogAOQHaHa?r=0&pid=Api&h=220&P=0",
+    imageUrl:
+        "https://tse1.mm.bing.net/th/id/OIP.zcQ5n8nP1xnQ0vzvZogAOQHaHa?r=0&pid=Api&h=220&P=0",
     category: "Fashion",
     stock: 12,
   ),
@@ -189,7 +208,8 @@ List<Product> products = [
     id: 7,
     name: "Celana",
     price: 150000,
-    imageUrl: "https://tse2.mm.bing.net/th/id/OIP.l93o5Hykb2hJV0bdgIQFwAHaHa?r=0&pid=Api&h=220&P=0",
+    imageUrl:
+        "https://tse2.mm.bing.net/th/id/OIP.l93o5Hykb2hJV0bdgIQFwAHaHa?r=0&pid=Api&h=220&P=0",
     category: "Fashion",
     stock: 20,
   ),
@@ -197,17 +217,18 @@ List<Product> products = [
     id: 8,
     name: "Kopi",
     price: 20000,
-    imageUrl: "https://tse2.mm.bing.net/th/id/OIP.ewnGqDbeNnBtdsxZviQlOQHaE7?r=0&pid=Api&h=220&P=0",
+    imageUrl:
+        "https://tse2.mm.bing.net/th/id/OIP.ewnGqDbeNnBtdsxZviQlOQHaE7?r=0&pid=Api&h=220&P=0",
     category: "Makanan",
     stock: 2,
   ),
   Product(
-  id: 9,
-  name: "Tablet",
-  price: 2000000,
-  imageUrl: "https://...",
-  category: "Elektronik",
-  stock: 5,
+    id: 9,
+    name: "Tablet",
+    price: 2000000,
+    imageUrl: "https://...",
+    category: "Elektronik",
+    stock: 5,
   ),
   Product(
     id: 10,
@@ -258,13 +279,13 @@ List<Product> products = [
     stock: 3,
   ),
   DiscountedProduct(
-  id: 16,
-  name: "Smartwatch",
-  price: 750000,
-  imageUrl: "URL_GAMBAR",
-  category: "Elektronik",
-  stock: 8,
-  discountPercent: 10,
+    id: 16,
+    name: "Smartwatch",
+    price: 750000,
+    imageUrl: "URL_GAMBAR",
+    category: "Elektronik",
+    stock: 8,
+    discountPercent: 10,
   ),
 ];
 
@@ -328,10 +349,9 @@ void main() {
 
   print("\n=== 16 PRODUCTS ===");
   for (Product p in products) {
-    print(
-      "${p.name} - ${rupiah(p.price)} - ${p.getStatusStok()}",
-    );
+    print("${p.name} - ${rupiah(p.price)} - ${p.getStatusStok()}");
   }
+
   print("\n=== TOTAL BELANJA ===");
   print(rupiah(hitungTotalBelanja(products)));
 
